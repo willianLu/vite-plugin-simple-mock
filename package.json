@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-simple-mock",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Simple vite mock dev server plugin",
   "type": "module",
   "main": "./dist/index.cjs",
