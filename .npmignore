@@ -1,0 +1,8 @@
+example
+lib
+package-lock.json
+yarn.lock
+.gitignore
+tsconfig.json
+tsup.config.ts
+.npmignore

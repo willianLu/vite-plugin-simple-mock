@@ -1,0 +1,53 @@
+{
+  "name": "vite-plugin-simple-mock",
+  "version": "0.1.0",
+  "description": "Simple vite mock dev server plugin",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willianLu/vite-plugin-simple-mock"
+  },
+  "keywords": [
+    "vite",
+    "mock",
+    "dev",
+    "server"
+  ],
+  "author": {
+    "name": "willianLu",
+    "email": "1013658157@qq.com",
+    "url": "https://github.com/willianLu"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/willianLu/vite-plugin-simple-mock/issues"
+  },
+  "homepage": "https://github.com/willianLu/vite-plugin-simple-mock#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.8",
+    "tsup": "^8.0.2",
+    "typescript": "^4.8.4",
+    "vite": "^5.1.6"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6"
+  }
+}
