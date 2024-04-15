@@ -1,8 +1,14 @@
 example
 lib
+.husky
 package-lock.json
 yarn.lock
 .gitignore
 tsconfig.json
 tsup.config.ts
 .npmignore
+.eslintignore
+.eslintrc.cjs
+.prettierignore
+.prettierrc
+.vcmrc.js
