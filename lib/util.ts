@@ -2,15 +2,15 @@
  * @description 基础数据类型
  */
 enum DataType {
-  NUMBER = "number",
-  STRING = "string",
-  ARRAY = "array",
-  OBJECT = "object",
-  UNDEFINED = "undefined",
-  NULL = "null",
-  FUNCTION = "function",
-  PROMISE = "promise",
-  ERROR = "error",
+  NUMBER = 'number',
+  STRING = 'string',
+  ARRAY = 'array',
+  OBJECT = 'object',
+  UNDEFINED = 'undefined',
+  NULL = 'null',
+  FUNCTION = 'function',
+  PROMISE = 'promise',
+  ERROR = 'error'
 }
 
 /**
@@ -23,7 +23,7 @@ function judgeDataType<T>(data: unknown, type: string): data is T {
   return (
     Object.prototype.toString.call(data).toLocaleLowerCase() ===
     `[object ${type}]`
-  );
+  )
 }
 
 /**
@@ -32,7 +32,7 @@ function judgeDataType<T>(data: unknown, type: string): data is T {
  * @returns {boolean} true | false
  */
 export function isObject<T = Record<any, unknown>>(data: unknown): data is T {
-  return judgeDataType<Record<any, unknown>>(data, DataType.OBJECT);
+  return judgeDataType<Record<any, unknown>>(data, DataType.OBJECT)
 }
 
 /**
@@ -41,7 +41,7 @@ export function isObject<T = Record<any, unknown>>(data: unknown): data is T {
  * @returns {boolean} true | false
  */
 export function isPromise<T>(data: unknown): data is Promise<T> {
-  return judgeDataType<Promise<T>>(data, DataType.PROMISE);
+  return judgeDataType<Promise<T>>(data, DataType.PROMISE)
 }
 
 /**
@@ -51,9 +51,9 @@ export function isPromise<T>(data: unknown): data is Promise<T> {
  * @returns {promise<T | undefined>}
  */
 export function delay<T>(duration?: number, data?: T): Promise<T | undefined> {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     setTimeout(() => {
-      resolve(data);
-    }, duration || 1000);
-  });
+      resolve(data)
+    }, duration || 1000)
+  })
 }

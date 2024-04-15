@@ -1,121 +1,121 @@
-import type { Connect } from "vite";
-import { isPromise } from "./util";
+import type { Connect } from 'vite'
+import { isPromise } from './util'
 
 import type {
   RequsetParams,
   MockOptions,
   MockRequest,
-  MockCallback,
-} from "./types";
-import { ServerResponse } from "http";
+  MockCallback
+} from './types'
+import { ServerResponse } from 'http'
 
-export const MockMap: Map<string, MockRequest & MockOptions> = new Map();
+export const MockMap: Map<string, MockRequest & MockOptions> = new Map()
 
 export default class Mock {
-  private timeout = 0;
-  disabled = false;
-  constructor(options?: Pick<MockOptions, "disabled" | "timeout">) {
-    this.disabled = options?.disabled || false;
-    this.timeout = options?.timeout || 0;
+  private timeout = 0
+  disabled = false
+  constructor(options?: Pick<MockOptions, 'disabled' | 'timeout'>) {
+    this.disabled = options?.disabled || false
+    this.timeout = options?.timeout || 0
   }
   request(options: MockRequest & MockOptions) {
-    if (this.disabled || options.disabled) return;
-    const key = options.method.toUpperCase() + ":" + options.url;
-    if (MockMap.get(key)) return;
-    MockMap.set(key, options);
+    if (this.disabled || options.disabled) return
+    const key = options.method.toUpperCase() + ':' + options.url
+    if (MockMap.get(key)) return
+    MockMap.set(key, options)
   }
   get(url: string, callback: MockCallback, options?: MockOptions) {
     this.request({
-      method: "GET",
+      method: 'GET',
       url,
       callback,
-      ...options,
-    });
+      ...options
+    })
   }
   post(url: string, callback: MockCallback, options?: MockOptions) {
     this.request({
-      method: "POST",
+      method: 'POST',
       url,
       callback,
-      ...options,
-    });
+      ...options
+    })
   }
   put(url: string, callback: MockCallback, options?: MockOptions) {
     this.request({
-      method: "PUT",
+      method: 'PUT',
       url,
       callback,
-      ...options,
-    });
+      ...options
+    })
   }
   delete(url: string, callback: MockCallback, options?: MockOptions) {
     this.request({
-      method: "DELETE",
+      method: 'DELETE',
       url,
       callback,
-      ...options,
-    });
+      ...options
+    })
   }
   head(url: string, callback: MockCallback, options?: MockOptions) {
     this.request({
-      method: "HEAD",
+      method: 'HEAD',
       url,
       callback,
-      ...options,
-    });
+      ...options
+    })
   }
   options(url: string, callback: MockCallback, options?: MockOptions) {
     this.request({
-      method: "OPTIONS",
+      method: 'OPTIONS',
       url,
       callback,
-      ...options,
-    });
+      ...options
+    })
   }
   trace(url: string, callback: MockCallback, options?: MockOptions) {
     this.request({
-      method: "TRACE",
+      method: 'TRACE',
       url,
       callback,
-      ...options,
-    });
+      ...options
+    })
   }
   patch(url: string, callback: MockCallback, options?: MockOptions) {
     this.request({
-      method: "PATCH",
+      method: 'PATCH',
       url,
       callback,
-      ...options,
-    });
+      ...options
+    })
   }
   match(
     req: Connect.IncomingMessage & RequsetParams,
     res: ServerResponse,
     key: string
   ) {
-    return new Promise((resolve) => {
-      const options = MockMap.get(key);
-      if (this.disabled || !options) return resolve(undefined);
-      const timeout = options.timeout || this.timeout || 0;
+    return new Promise(resolve => {
+      const options = MockMap.get(key)
+      if (this.disabled || !options) return resolve(undefined)
+      const timeout = options.timeout || this.timeout || 0
       if (timeout > 0) {
         req.setTimeout(timeout, () => {
-          resolve(undefined);
-        });
+          resolve(undefined)
+        })
       }
-      const body = options.callback(req, res);
+      const body = options.callback(req, res)
       if (isPromise(body)) {
-        body.then((_body) => {
+        body.then(_body => {
           resolve({
             body: _body,
-            ...options,
-          });
-        });
+            ...options
+          })
+        })
       } else {
         resolve({
           body,
-          ...options,
-        });
+          ...options
+        })
       }
-    });
+    })
   }
 }
